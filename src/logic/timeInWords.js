@@ -21,6 +21,7 @@ return hrs[hr];
 
 const convertMinutes = (min) => {
 const mins = {
+      0 : "o' clock",
       1 : "one",
       2 : "two",
       3 : "three",
@@ -58,13 +59,13 @@ const displayHour = (hr) => {
 
 const displayMinute = (min) => {
     const strMin = String(min);
-    return min > 19 ? convertPrefix(strMin[0]) + convertMinutes(strMin[1]) : convertMinutes(min);
+    if(min > 19 && strMin[1] > 0) return `${convertPrefix(strMin[0])} ${convertMinutes(strMin[1])}`
+    if(min > 19) return `${convertPrefix(strMin[0])}`;
+    return convertMinutes(min);
 }
 
 const displayQuarters = (min) => {
     switch(min){
-        case 0:
-            return "o' clock";
         case 15:
             return "quarter past";
         case 30:
