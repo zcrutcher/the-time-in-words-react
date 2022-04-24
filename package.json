@@ -2,7 +2,7 @@
   "name": "designer-tailwindcss-template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js, jsx}\"",
     "dev": "parcel src/index.html",
