@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js, jsx}\"",
-    "dev": "parcel src/index.html"
+    "dev": "parcel src/index.html",
+    "start": "parcel build src/index.html"
   },
   "keywords": [],
   "author": "",
