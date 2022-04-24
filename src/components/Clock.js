@@ -5,6 +5,7 @@ const Clock = () => {
 
     const [time, setTime] = useState({hour : "12", minute : "00"})
     const [convertedTime, setConvertedTime] = useState({hour : time.hour, minute :time.minute});
+    const [errors, setErrors] = useState({hour : null, minute : null})
 
     useEffect(() => {
         setConvertedTime({hour : Number(time.hour), minute : Number(time.minute)});
@@ -15,18 +16,32 @@ const Clock = () => {
     };
 
     const changeHandler = e => {
+        if(e.target.name == "hour"){
+            setErrors({...errors, hour : e.target.value > 0 && e.target.value < 13 ? null : "Please enter a number 1 - 12"})
+        }
+        if(e.target.name == "minute"){
+            console.log("Hit the minute")
+            setErrors({...errors, minute : e.target.value > -1 && e.target.value < 60 ? null : "Please enter a number 0 - 59"})
+        }
        setTime({...time, [e.target.name] : e.target.value});
     }
 
     return (
+        <>
         <form onSubmit={submitHandler}>
             <h3>Hour</h3>
-            <input type="number" name="hour" id="hour" value={time.hour} onChange={changeHandler}></input>
+            <h3>{errors.hour}</h3>
+            <input type="text" name="hour" id="hour" maxLength="2" value={time.hour} onChange={changeHandler}></input>
             <h3>Minutes</h3>
-            <input type="number" name="minute" id="minute" value={time.minute} onChange={changeHandler}></input>
+            <h3>{errors.minute}</h3>
+            <input type="text" name="minute" id="minute" maxLength="2" value={time.minute} onChange={changeHandler}></input>
             <input type="submit" value="Submit"></input>
-            <Display hour={convertedTime.hour} minute={convertedTime.minute} />
+            
         </form>
+            
+            {errors.hour || errors.minute ? null :  <Display hour={convertedTime.hour} minute={convertedTime.minute} />}
+           
+        </>
     )
 }
 
@@ -51,7 +66,6 @@ const Display = ({hour, minute}) => {
     else{
         wording = `${words.minute} ${words.phrasing} ${words.hour}`;
     }
-
 
     return (
         <>
