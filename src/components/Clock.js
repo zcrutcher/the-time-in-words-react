@@ -24,7 +24,7 @@ const Clock = () => {
         hour:
           e.target.value > 0 && e.target.value < 13
             ? null
-            : "Please enter a number 1 - 12",
+            : "Please enter an Hour value of 1 - 12",
       });
     }
     if (e.target.name == "minute") {
@@ -33,7 +33,7 @@ const Clock = () => {
         minute:
           e.target.value > -1 && e.target.value < 60
             ? null
-            : "Please enter a number 0 - 59",
+            : "Please enter a Minute value of 0 - 59",
       });
     }
     setTime({ ...time, [e.target.name]: e.target.value });
@@ -41,31 +41,43 @@ const Clock = () => {
 
   return (
     <>
-      <form>
-        <h3>Hour</h3>
-        <h3>{errors.hour}</h3>
-        <input
-          type="text"
-          name="hour"
-          id="hour"
-          maxLength="2"
-          value={time.hour}
-          onChange={changeHandler}
-        ></input>
-        <h3>Minutes</h3>
-        <h3>{errors.minute}</h3>
-        <input
-          type="text"
-          name="minute"
-          id="minute"
-          maxLength="2"
-          value={time.minute}
-          onChange={changeHandler}
-        ></input>
+      <form className="flex flex-row justify-center">
+        <div className="flex flex-col">
+          <h3 className="text-center text-3xl">Hour</h3>
+
+          <input
+            className="bg-slate-200 m-3 text-center text-2xl h-16 w-32 rounded-md"
+            type="text"
+            name="hour"
+            id="hour"
+            maxLength="2"
+            value={time.hour}
+            onChange={changeHandler}
+          ></input>
+        </div>
+        <div className="text-4xl mt-6 flex self-center">:</div>
+
+        <div className="flex flex-col">
+          <h3 className="text-center text-3xl">Minutes</h3>
+
+          <input
+            className="bg-slate-200 m-3 text-center text-2xl h-16 w-32 rounded-md"
+            type="text"
+            name="minute"
+            id="minute"
+            maxLength="2"
+            value={time.minute}
+            onChange={changeHandler}
+          ></input>
+        </div>
       </form>
 
-      {errors.hour || errors.minute ? null : (
-        <Display hour={convertedTime.hour} minute={convertedTime.minute} />
+      {errors.hour || errors.minute ? (
+        <Errors hour={errors.hour} minute={errors.minute} />
+      ) : (
+        <div className="text-center text-4xl m-4 capitalize">
+          <Display hour={convertedTime.hour} minute={convertedTime.minute} />
+        </div>
       )}
     </>
   );
@@ -111,4 +123,22 @@ const Display = ({ hour, minute }) => {
   );
 };
 
+const Errors = ({ hour, minute }) => {
+  return (
+    <div className="flex justify-center">
+      <div className="flex flex-col w-1/2">
+        {hour && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative m-4 text-center">
+            {hour}
+          </div>
+        )}
+        {minute && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative m-4 text-center">
+            {minute}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 export default Clock;

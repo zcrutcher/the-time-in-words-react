@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Clock from "./components/Clock";
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <>
-      <h1>Hi Mom</h1>
+      <Header></Header>
       <Clock></Clock>
     </>
   );
